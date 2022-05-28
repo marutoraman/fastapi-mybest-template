@@ -1,7 +1,8 @@
+from core import utils
 from core.logger import get_logger
 from exceptions.core import APIException
 from exceptions.error_messages import ErrorMessage
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 
 logger = get_logger(__name__)
 
@@ -20,3 +21,8 @@ def exec_error() -> None:
 def exec_error2() -> None:
     # time.sleep(100)
     raise APIException(ErrorMessage.INTERNAL_SERVER_ERROR)
+
+
+@router.get("/request-info")
+def get_request_info(request: Request):
+    return utils.get_request_info(request)

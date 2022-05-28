@@ -6,10 +6,7 @@ services:
     restart: always
     # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     command: >
-      mysqld
-      --default-authentication-plugin=mysql_native_password
-      --character-set-server=utf8mb4
-      --collation-server=utf8mb4_general_ci
+      mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     ports:
       - "3307:3306" # port重複防止のため、local側は3306以外とする
     environment:
@@ -28,10 +25,7 @@ services:
     restart: always
     # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     command: >
-      mysqld
-      --default-authentication-plugin=mysql_native_password
-      --character-set-server=utf8mb4
-      --collation-server=utf8mb4_general_ci
+      mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     ports:
       - "3308:3306" # port重複防止のため、local側は3306以外とする
     environment:
@@ -41,18 +35,31 @@ services:
       MYSQL_PASSWORD: docker
     networks:
       - fastapi_network
-    # volumes:
-    #   - db_volume:/var/lib/mysql
+      # volumes:
+      #   - db_volume:/var/lib/mysql
       #- ./docker/dump_sql/seed.sql.gz:/docker-entrypoint-initdb.d/install_docker.sql.gz
 
   web:
     build:
       context: .
       dockerfile: Dockerfile.web
-    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--reload", "--log-config", "./app/logger_config.yaml"]
+    command:
+      [
+        "uvicorn",
+        "app.main:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "80",
+        "--reload",
+        "--log-config",
+        "./app/logger_config.yaml",
+        --proxy-headers,
+        --forwarded-allow-ips='*'
+      ]
     ports:
-      - 8090:80
-      - 8091:81 # for debug launch
+      - 8888:80
+      - 8889:81 # for debug launch
     volumes:
       - .:/backend
     links:
@@ -61,7 +68,6 @@ services:
     networks:
       - fastapi_network
     tty: true
-
 
 volumes:
   db_volume:

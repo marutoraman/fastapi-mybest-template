@@ -9,7 +9,6 @@ from sqlalchemy.engine import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
 from .utils.test_crud import init_tables
-
 # from tests.utils.test_crud import init_tables
 from .utils.user import authentication_token_from_email
 
