@@ -107,6 +107,22 @@ batch/__set_base_path__.py に記述し、各ファイルの先頭でimportす�
 core/config.py にて、BaseSettingsを継承して共通設定Classを定義しています。  
 .envファイルから自動的に設定を読み込むことができる他、個別に設定を定義することもできます。
 
+## CORS-ORIGIN
+CORS ORIGINは大きく２パターンの設定方法があります。  
+allow_originsにlistを指定する方法では、settings.CORS_ORIGINSにurlを指定することで  
+任意のORIGINが設定可能です。  
+また、https://****.example.com のようにサブドメインを一括で許可したい場合は  
+allow_origin_regexに以下のように正規表現でURLパターンを指定してください。
+```python
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[str(origin) for origin in settings.CORS_ORIGINS],
+    allow_origin_regex=r"^https?:\/\/([\w\-\_]{1,}\.|)example\.com",
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+```
+
 ## ErrorException
 exceptions/error_messages.py にエラーメッセージを定義しています。  
 APIExceptionと併せて以下のように、呼び出すことで、任意のHTTPコードのエラーレスポンスを作成できます。
