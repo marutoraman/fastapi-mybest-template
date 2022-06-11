@@ -31,6 +31,10 @@ inflection = "^0.5.1"
 sqlalchemy-filters = {git = "https://github.com/bodik/sqlalchemy-filters", rev = "fix-sqla14-select"}
 fire = "^0.4.0"
 alembic = "^1.7.7"
+SudachiPy = "^0.6.3"
+SudachiDict-core = "^20220519"
+SudachiDict-full = "^20220519"
+SudachiDict-small = "^20220519"
 
 [tool.poetry.dev-dependencies]
 locust = "^2.8.5"
