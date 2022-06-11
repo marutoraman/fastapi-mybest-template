@@ -4,19 +4,7 @@ from sudachipy import tokenizer, dictionary, MorphemeList
 from pydantic import BaseModel, Field
 import time
 
-
-class AnalyzedlanguageToken(BaseModel):
-    surface: str = Field(..., description="表層形式(入力文字のまま)")
-    dictionaly_form: str = Field(..., description="辞書形式")
-    reading_form: str = Field(..., description="読みカナ")
-    normalized_form: str = Field(..., description="正規化済の形式")
-    part_of_speech: Tuple = Field(..., description="品詞")
-
-
-class AnalyzedLanguage(BaseModel):
-    raw_text: str
-    tokens: List[AnalyzedlanguageToken] = []
-    during_time: float
+import schemas
 
 
 class SudachiDictType(Enum):
@@ -29,7 +17,8 @@ def tokenize(
     text: str,
     mode: tokenizer.Tokenizer.SplitMode = tokenizer.Tokenizer.SplitMode.C,
     dict_type: SudachiDictType = SudachiDictType.CORE,
-) -> AnalyzedLanguage:
+    exclude_part_of_speech: list = ["助詞", "補助記号", "句点", "助動詞"],
+) -> schemas.AnalyzedLanguage:
     """言語解析
     Args:
         - text: 入力テキスト
@@ -41,18 +30,26 @@ def tokenize(
     start = time.time()
     tokenizer_obj = dictionary.Dictionary(dict_type=dict_type.value).create()
     # mode = tokenizer.Tokenizer.SplitMode.C
-    tokens: List[AnalyzedlanguageToken] = []
+    tokens: List[schemas.AnalyzedlanguageToken] = []
+    excluded_tokens: List[schemas.AnalyzedlanguageToken] = []
     for tokenized_obj in tokenizer_obj.tokenize(text, mode):
-        tokens.append(
-            AnalyzedlanguageToken(
-                surface=tokenized_obj.surface(),
-                dictionaly_form=tokenized_obj.dictionary_form(),
-                reading_form=tokenized_obj.reading_form(),
-                normalized_form=tokenized_obj.normalized_form(),
-                part_of_speech=tokenized_obj.part_of_speech(),
-            )
+        analyzed_token = schemas.AnalyzedlanguageToken(
+            surface=tokenized_obj.surface(),
+            dictionaly_form=tokenized_obj.dictionary_form(),
+            reading_form=tokenized_obj.reading_form(),
+            normalized_form=tokenized_obj.normalized_form(),
+            part_of_speech=tokenized_obj.part_of_speech(),
+            begin_pos=tokenized_obj.begin(),
+            end_pos=tokenized_obj.end(),
         )
+        if len(set(tokenized_obj.part_of_speech()) & set(exclude_part_of_speech)) != 0:
+            excluded_tokens.append(analyzed_token)
+        else:
+            tokens.append(analyzed_token)
 
-    return AnalyzedLanguage(
-        raw_text=text, tokens=tokens, during_time=(time.time() - start)
+    return schemas.AnalyzedLanguage(
+        raw_text=text,
+        tokens=tokens,
+        excluded_tokens=excluded_tokens,
+        during_time=(time.time() - start),
     )
