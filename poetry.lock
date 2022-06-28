@@ -1245,6 +1245,50 @@ python-versions = ">=3.6"
 pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 
 [[package]]
+name = "sudachidict-core"
+version = "20220519"
+description = "Sudachi Dictionary for SudachiPy - Core Edition"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+SudachiPy = ">=0.5,<0.7"
+
+[[package]]
+name = "sudachidict-full"
+version = "20220519"
+description = "Sudachi Dictionary for SudachiPy - Full Edition"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+SudachiPy = ">=0.5,<0.7"
+
+[[package]]
+name = "sudachidict-small"
+version = "20220519"
+description = "Sudachi Dictionary for SudachiPy - Small Edition"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+SudachiPy = ">=0.5,<0.7"
+
+[[package]]
+name = "sudachipy"
+version = "0.6.3"
+description = "Python version of Sudachi, the Japanese Morphological Analyzer"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+tests = ["tokenizers", "sudachidict-core"]
+
+[[package]]
 name = "termcolor"
 version = "1.1.0"
 description = "ANSII Color formatting for output in terminal."
@@ -1409,7 +1453,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "b9ab5ff21e6ca3ec5c1d4af1d099839039f1f318fc96ee4ae184feb1efc50ec3"
+content-hash = "f9248a0b67816b542c512cbb2265d059b956cd175de2ad57993a042b73cd2db0"
 
 [metadata.files]
 alembic = [
@@ -2393,6 +2437,33 @@ starlette = [
 stevedore = [
     {file = "stevedore-3.5.0-py3-none-any.whl", hash = "sha256:a547de73308fd7e90075bb4d301405bebf705292fa90a90fc3bcf9133f58616c"},
     {file = "stevedore-3.5.0.tar.gz", hash = "sha256:f40253887d8712eaa2bb0ea3830374416736dc8ec0e22f5a65092c1174c44335"},
+]
+sudachidict-core = [
+    {file = "SudachiDict-core-20220519.tar.gz", hash = "sha256:dd045b22522f6cc1c87f1bfdb6aec05abd14d371aa499b7af4d3a9d7216782b0"},
+]
+sudachidict-full = [
+    {file = "SudachiDict-full-20220519.tar.gz", hash = "sha256:4253cd487e1d032b9eda9ff4c8232d2de218dfbebe446c99558585d06834c4f5"},
+]
+sudachidict-small = [
+    {file = "SudachiDict-small-20220519.tar.gz", hash = "sha256:3e2e9f67944935ed307631ed9870749e0d5a89d575ed1b9a72bd68cd1997b361"},
+]
+sudachipy = [
+    {file = "SudachiPy-0.6.3-cp310-cp310-macosx_10_15_x86_64.whl", hash = "sha256:a7c25aaae3614879fec293ac370cafa0012f6493e99300a1b613134e2f73aff0"},
+    {file = "SudachiPy-0.6.3-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:a9c4776d72c43e7882134c1dc4e8c28541fc5f23592ac3e2fdd7989c6fb29711"},
+    {file = "SudachiPy-0.6.3-cp310-cp310-win_amd64.whl", hash = "sha256:42586a4ca719080739ba9f2a4299aa214a2fc63ed4605d0c62000e40c55e7f7f"},
+    {file = "SudachiPy-0.6.3-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:ef9f28f5e8fbb72e62f8a9cffd8934da4c229aa6321265e8876938beef9eb0df"},
+    {file = "SudachiPy-0.6.3-cp36-cp36m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:7231fd069e250ef349ba4bf74a63c22b667e1da429cdb2b51cf8f29f13866921"},
+    {file = "SudachiPy-0.6.3-cp36-cp36m-win_amd64.whl", hash = "sha256:0197e0fe2aa336c111f63bb772cc3de567b2bb880f219d505248b4c1a0098e42"},
+    {file = "SudachiPy-0.6.3-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:d31e496c5d452b42c7faf3fed8e91bffbb4c5293ecdec17a61dd2339da2cbe03"},
+    {file = "SudachiPy-0.6.3-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:e3fbd4e4f3153a3f6c857110940b3910893d2bd4ad06d166f6b64ce73e58771d"},
+    {file = "SudachiPy-0.6.3-cp37-cp37m-win_amd64.whl", hash = "sha256:d7201862d2585f5ed7ad0fca02732ce8e019172b3921c9d49e98470af2457a24"},
+    {file = "SudachiPy-0.6.3-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:747ea92ee744cd84e4f7491de795dc6cde6ad5cefd2f916bddd8a08a793d181b"},
+    {file = "SudachiPy-0.6.3-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:0fbc1c872a35962c426d3edf28910a7e97045210e517123f3779f0db388376a2"},
+    {file = "SudachiPy-0.6.3-cp38-cp38-win_amd64.whl", hash = "sha256:204c247f633a5f30a3e5a3235df2af693d013df39eccd8315abe2a2aae40419e"},
+    {file = "SudachiPy-0.6.3-cp39-cp39-macosx_10_15_x86_64.whl", hash = "sha256:8d42ddfe3ae4eaaf1afc70a23ddc82e5aa810b50eb7f64f1f8be6b5f86bf897a"},
+    {file = "SudachiPy-0.6.3-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:e6dca0ad438ddbfb09eef47c3712abb6d0936a34afb1781c22205f68b647d88f"},
+    {file = "SudachiPy-0.6.3-cp39-cp39-win_amd64.whl", hash = "sha256:0720a329daeb75608d885313d5ab5be0ff674b495bc7d87ba78bb33ee07bb3ec"},
+    {file = "SudachiPy-0.6.3.tar.gz", hash = "sha256:b938c598d9cd42a1b7e28069d304c685d9ea41022469abbf09d66ed626250e37"},
 ]
 termcolor = [
     {file = "termcolor-1.1.0.tar.gz", hash = "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"},

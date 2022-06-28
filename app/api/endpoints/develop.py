@@ -4,6 +4,7 @@ from exceptions.core import APIException
 from exceptions.error_messages import ErrorMessage
 from fastapi import APIRouter, Request
 import schemas
+from core.language_analyer import tokenize
 
 logger = get_logger(__name__)
 
@@ -30,3 +31,8 @@ def get_request_info(request: Request):
     host = utils.get_host_by_ip_address(ip_address)
 
     return schemas.RequestInfoResponse(ip_address=ip_address, host=host)
+
+
+@router.post("/language-analysis", response_model=schemas.AnalyzedLanguage)
+def get_analyzed_language(text: str):
+    return tokenize(text=text)
