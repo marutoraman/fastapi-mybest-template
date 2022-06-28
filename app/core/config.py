@@ -21,13 +21,9 @@ class Settings(BaseSettings):
     TEST_USER_EMAIL: str = "test-user@example.com"
     TEST_USER_PASSWORD: str = "test-user"
     TEST_DATABASE_URI: str = ""
-    TEST_SQL_DATA_PATH: str = os.path.join(
-        BASE_DIR_PATH, "tests", "test_data", "dump.sql.gz"
-    )
+    TEST_SQL_DATA_PATH: str = os.path.join(BASE_DIR_PATH, "tests", "test_data", "dump.sql.gz")
 
-    DOCKER_DATABASE_URI: str = (
-        "mysql+mysqlconnector://docker:docker@db/docker"  # Docker内部ネットワークで疎通する場合のURI
-    )
+    DOCKER_DATABASE_URI: str = "mysql+mysqlconnector://docker:docker@db/docker"  # Docker内部ネットワークで疎通する場合のURI
 
     class Config:
         env_file = ".env"

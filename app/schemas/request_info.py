@@ -1,7 +1,6 @@
-import datetime
-from typing import List, Optional
+from typing import Optional
 
-from schemas.core import BaseSchema, PagingMeta
+from schemas.core import BaseSchema
 
 
 class RequestInfoResponse(BaseSchema):
@@ -10,5 +9,3 @@ class RequestInfoResponse(BaseSchema):
 
     class Config:
         orm_mode = True
-
-

@@ -21,16 +21,12 @@ def login_access_token(
     """
     OAuth2 compatible token login, get an access token for future requests
     """
-    user = crud.user.authenticate(
-        db, email=form_data.username, password=form_data.password
-    )
+    user = crud.user.authenticate(db, email=form_data.username, password=form_data.password)
     if not user:
         raise APIException(ErrorMessage.FAILURE_LOGIN)
     # elif not crud.user.is_active(user):
     #     raise HTTPException(status_code=400, detail="Inactive user")
-    access_token_expires = datetime.timedelta(
-        minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
-    )
+    access_token_expires = datetime.timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = auth.create_access_token(user.id, expires_delta=access_token_expires)
     return schemas.Token(
         access_token=access_token,

@@ -18,9 +18,7 @@ UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
 ListResponseSchemaType = TypeVar("ListResponseSchemaType", bound=BaseModel)
 
 
-class CRUDBase(
-    Generic[ModelType, CreateSchemaType, UpdateSchemaType, ListResponseSchemaType]
-):
+class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType, ListResponseSchemaType]):
 
     # DELETE_FLG_LIST = [
     #     {"column": "disabled", "enable_value": False},
@@ -35,19 +33,13 @@ class CRUDBase(
         self.model = model
         self.list_response = list_response
 
-    def get(
-        self, db: Session, id: Any, include_deleted: bool = False, select_query=None
-    ) -> Optional[ModelType]:
+    def get(self, db: Session, id: Any, include_deleted: bool = False, select_query=None) -> Optional[ModelType]:
         if not select_query:
             query = db.query(self.model)
         else:
             query = db.query(*select_query)
 
-        return (
-            query.filter(self.model.id == id)
-            .execution_options(include_deleted=include_deleted)
-            .first()
-        )
+        return query.filter(self.model.id == id).execution_options(include_deleted=include_deleted).first()
 
     def get_list(
         self,
@@ -90,11 +82,7 @@ class CRUDBase(
         else:
             query = self.model  # type: ignore
 
-        if (
-            filter_params
-            and filter_params.sort
-            and (filter_params.start or filter_params.end)
-        ):
+        if filter_params and filter_params.sort and (filter_params.start or filter_params.end):
             filter_dict = [
                 {
                     "model": "Job",
@@ -151,14 +139,10 @@ class CRUDBase(
 
         return db_obj
 
-    def update(
-        self, db: Session, *, db_obj: ModelType, obj_in: UpdateSchemaType
-    ) -> ModelType:
+    def update(self, db: Session, *, db_obj: ModelType, obj_in: UpdateSchemaType) -> ModelType:
         # obj_inでセットされたスキーマをmodelの各カラムにUpdate
         db_obj_dict = jsonable_encoder(db_obj)
-        update_dict = obj_in.dict(
-            exclude_unset=True
-        )  # exclude_unset=Trueとすることで、未指定のカラムはUpdateしない
+        update_dict = obj_in.dict(exclude_unset=True)  # exclude_unset=Trueとすることで、未指定のカラムはUpdateしない
         for field in db_obj_dict:
             if field in update_dict:
                 setattr(db_obj, field, update_dict[field])

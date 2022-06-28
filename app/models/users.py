@@ -1,6 +1,5 @@
 from core.database import Base
-from sqlalchemy import (Boolean, Column, DateTime, ForeignKey, String, Table,
-                        Text, func)
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, String, Table, Text, func
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.functions import current_timestamp
 

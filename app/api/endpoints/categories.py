@@ -39,9 +39,7 @@ def get_categories(
 
 
 @router.post("", response_model=schemas.CategoryResponse)
-def create_category(
-    data_in: schemas.CategoryCreate, db: Session = Depends(get_db)
-) -> models.Category:
+def create_category(data_in: schemas.CategoryCreate, db: Session = Depends(get_db)) -> models.Category:
     try:
         return crud.category.create(db, data_in)
     except Exception:
@@ -60,11 +58,7 @@ def update(
     if not category:
         raise APIException(ErrorMessage.ID_NOT_FOUND)
     if data_in.parent_category_id:
-        if (
-            not db.query(models.Category)
-            .filter_by(id=data_in.parent_category_id)
-            .first()
-        ):
+        if not db.query(models.Category).filter_by(id=data_in.parent_category_id).first():
             raise APIException(ErrorMessage.NOT_FOUND("parent_category_id"))
     return crud.category.update(db, db_obj=category, obj_in=data_in)
 

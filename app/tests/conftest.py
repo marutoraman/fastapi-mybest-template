@@ -9,6 +9,7 @@ from sqlalchemy.engine import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
 from .utils.test_crud import init_tables
+
 # from tests.utils.test_crud import init_tables
 from .utils.user import authentication_token_from_email
 
@@ -83,9 +84,7 @@ def client() -> Generator:
 
 @pytest.fixture
 def auth_headers(client: TestClient, db: Session) -> Dict[str, str]:
-    return authentication_token_from_email(
-        client=client, email=settings.TEST_USER_EMAIL, db=db
-    )
+    return authentication_token_from_email(client=client, email=settings.TEST_USER_EMAIL, db=db)
 
 
 # def TestSession():

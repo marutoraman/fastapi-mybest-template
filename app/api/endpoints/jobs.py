@@ -23,9 +23,7 @@ def get_count(db: Session = Depends(get_db)) -> List[models.Job]:
 
 
 @router.get("/{id}", response_model=schemas.JobResponse)
-def get_job(
-    id: str, include_deleted: bool = False, db: Session = Depends(get_db)
-) -> models.Job:
+def get_job(id: str, include_deleted: bool = False, db: Session = Depends(get_db)) -> models.Job:
     job = crud.job.get(db, id=id, include_deleted=include_deleted)
     if not job:
         raise APIException(ErrorMessage.ID_NOT_FOUND)
@@ -59,9 +57,7 @@ def get_jobs(
     #     }]w
     #     query = apply_sort(query, sort_dict)
 
-    return crud.job.get_paged_list(
-        db, paging=paging, filtered_query=query, filter_params=filter_params
-    )
+    return crud.job.get_paged_list(db, paging=paging, filtered_query=query, filter_params=filter_params)
 
 
 @router.post("", response_model=schemas.JobResponse)

@@ -12,9 +12,7 @@ router = APIRouter()
 
 
 @router.get("/me", response_model=schemas.UserResponse)
-def get_user_me(
-    db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)
-) -> models.User:
+def get_user_me(db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)) -> models.User:
     return current_user
 
 

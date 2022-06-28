@@ -24,14 +24,10 @@ async def long_process_async(id: str) -> None:
 
 
 @router.post("/long-process/thread")
-def exec_long_process_thread(
-    id: str, background_tasks: BackgroundTasks, db: Session = Depends(get_db)
-) -> None:
+def exec_long_process_thread(id: str, background_tasks: BackgroundTasks, db: Session = Depends(get_db)) -> None:
     background_tasks.add_task(long_process_thread, id)
 
 
 @router.post("/long-process/async")
-async def exec_long_process_async(
-    id: str, background_tasks: BackgroundTasks, db: Session = Depends(get_db)
-) -> None:
+async def exec_long_process_async(id: str, background_tasks: BackgroundTasks, db: Session = Depends(get_db)) -> None:
     background_tasks.add_task(long_process_async, id)

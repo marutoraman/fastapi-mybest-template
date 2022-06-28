@@ -59,11 +59,7 @@ class PagingQueryIn(BaseSchema):
         return 30 if not v >= 1 else v
 
     def get_offset(self) -> int:
-        return (
-            (self.page - 1) * self.per_page
-            if self.page >= 1 and self.per_page >= 1
-            else 0
-        )
+        return (self.page - 1) * self.per_page if self.page >= 1 and self.per_page >= 1 else 0
 
     def set_paging_query(self, query: Any) -> Any:
         offset = self.get_offset()

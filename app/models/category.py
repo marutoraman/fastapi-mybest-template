@@ -13,9 +13,7 @@ class Category(Base, ModelBase):
     mysql_collate = "utf8mb4_unicode_ci"
 
     name = Column(String(64))
-    parent_category_id = Column(
-        String(32), ForeignKey("categories.id"), index=True, nullable=True
-    )
+    parent_category_id = Column(String(32), ForeignKey("categories.id"), index=True, nullable=True)
 
     updated_at = Column(
         DateTime,

@@ -1,8 +1,7 @@
-import fastapi
-import ulid
 import socket
+
+import ulid
 from fastapi import Request
-from pkg_resources import require
 
 
 def get_ulid() -> str:

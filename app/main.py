@@ -25,6 +25,7 @@ if settings.SENTRY_SDK_DNS:
         environment=settings.ENV,
     )
 
+
 app.add_middleware(SentryAsgiMiddleware)
 
 app.add_middleware(
